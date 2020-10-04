@@ -1,0 +1,72 @@
+
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\title{Formative Assignment 0 \\ The Untyped $\lambda$-Calculus}
+\author{Sam Barrett, 1803086}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+
+	\item
+	      \begin{enumerate}
+		      \item Prove that $(\texttt{add}\: \underline{2} \: \underline{3})$ $\beta$-reduces to $\underline{5}$, i.e. that $(\texttt{add}\: \underline{2} \: \underline{3}) \mapsto^*_{\beta} \underline{5}$. Describe each $\mapsto_\beta$ step.
+
+
+		            \begin{align*}
+			             &  & (\texttt{add} \: \underline{2} \: \underline{3}) &                                                                                                     \\
+			             &  & =                                                &   & ((\lambda a.\lambda b. \lambda f. \lambda x. a f ( b f x)) \: \underline{2} \: \underline{3}) & \\
+			             &  & \mapsto_\beta                                    &   & ((\lambda b. \lambda f . \lambda x . \underline{2} f (b f x))\underline{3})                   & \\
+			             &  & \mapsto_\beta                                    &   & (\lambda f. \lambda x. \underline{2}f(\underline{3} f x))                                     & \\
+			             &  & =                                                &   & (\lambda f. \lambda x. (\lambda f.\lambda x.f(f x))f((\lambda f.\lambda x. f(f(f x)))f x))    & \\
+			             &  & \mapsto_\beta                                    &   & ( \lambda f. \lambda x. ( \lambda x. f ( f x))(( \lambda x. f(f(f x)))x)                      & \\
+			             &  & \mapsto_\beta                                    &   & \lambda f. \lambda x ( \lambda x. f (f x))(f ( f(f x)))                                       & \\
+			             &  & \mapsto_\beta                                    &   & \lambda f. \lambda x.(f (f (f(f(f x)))))                                                      & \\
+			             &  & =                                                &   & \underline{5}
+		            \end{align*}
+
+
+		            \newpage
+		      \item Define a multiplication operation $\texttt{mul}$ and prove $(\texttt{mul} \: \underline{2} \: \underline{3})$ $\beta$-reduces to $\underline{6}$, i.e., that $(\texttt{mul} \: \underline{2} \: \underline{3}) \mapsto^*_\beta \underline{6}$. Describe each $\mapsto_\beta$ step.
+
+
+		            Definition of $ \texttt{mul}$:
+
+		            $$
+			            \lambda a. \lambda b. a ( \texttt{add} \: b) \underline{0}
+		            $$
+
+		            \begin{align*}
+			             &  & \texttt{mul} \: \underline{2} \: \underline{3} &                                                                                                                                        \\
+			             &  & =                                              &   & (( \lambda a. \lambda b. a ( \texttt{add} \: b) \underline{0} ) \underline{2} \: \underline{3} )                                 & \\
+			             &  & \mapsto_\beta                                  &   & \underline{2} ( \texttt{add}  \:\underline{3} ) \underline{0}                                                                    & \\
+			             &  & =                                              &   & \lambda f. \lambda x. f( f x)( \texttt{add}  \:\underline{3} ) \underline{0}                                                     & \\
+			             &  & \mapsto_\beta                                  &   & \lambda x. ( \texttt{add}  \:\underline{3} )(( \texttt{add}  \:\underline{3} ) x) \underline{0}                                  & \\
+			             &  & \mapsto_\beta                                  &   & ( \texttt{add}  \:\underline{3} )(( \texttt{add} \: \underline{3} ) \underline{0} )                                              & \\
+			             &  & =                                              &   & ( \lambda a. \lambda b. \lambda f. \lambda x. a f ( b f x)) \underline{3} ( \texttt{add}  \:\underline{3}  \:\underline{0} )     & \\
+			             &  & \mapsto_\beta                                  &   & ( \lambda b. \lambda f. \lambda x. \underline{3} f( b f x))( \texttt{add}  \:\underline{3}  \:\underline{0} )                    & \\
+			             &  & \mapsto_\beta                                  &   & ( \lambda f. \lambda x. \underline{3} f ( \texttt{add}  \:\underline{3}  \:\underline{0} \: f x ))                               & \\
+			             &  & =                                              &   & ( \lambda f. \lambda x. ( \lambda f . \lambda x. f(f(f x)))) f( \texttt{add}  \:\underline{3} \: \underline{0}  \:f x)           & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. ( \lambda x. f(f(f x)))( \texttt{add}  \:\underline{3}  \:\underline{0}  \:f x)                            & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. ( f(f(f( \texttt{add}  \:\underline{3} \: \underline{0}  \:f x ))))                                        & \\
+			             &  & =                                              &   & \lambda f. \lambda x. (f(f(f( \lambda a. \lambda b. \lambda f. \lambda x. a f (b f x) \underline{3} \: \underline{0} \: f x )))) & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. (f (f(f( \lambda f. \lambda x. \underline{3} \: f ( b f x) \underline{0} \: f x ))))                       & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. (f(f(f( \lambda f. \lambda x. \underline{3} \: f ( \underline{0} \: f x ) f x))))                          & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. (f(f(f( \underline{3} \: f ( \underline{0} \: f x )))))                                                    & \\
+			             &  & =                                              &   & \lambda f. \lambda x. (f(f(f(( \lambda f. \lambda x. f(f(f x)) f)( \underline{0} \: f x )))))                                    & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. (f(f(f( \lambda x. f (f(f(fx)))( \underline{0} \: f x )))))                                                & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. (f(f(f(f(f(f( \underline{0} \: f x )))))))                                                                 & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. (f(f(f(f(f(f( \lambda f. \lambda x. x f x)))))))                                                           & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. (f(f(f(f(f(f( \lambda x. x x )))))))                                                                       & \\
+			             &  & \mapsto_\beta                                  &   & \lambda f. \lambda x. (f(f(f(f(f(f x))))))                                                                                       & \\
+			             &  & =                                              &   & \underline{6}                                                                                                                    &
+		            \end{align*}
+	      \end{enumerate}
+
+	\item
+\end{enumerate}
+
+
+\end{document}
