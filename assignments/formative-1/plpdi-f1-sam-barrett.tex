@@ -3,9 +3,8 @@
 \usepackage{amsmath}
 \title{Formative Assignment 0 \\ The Untyped $\lambda$-Calculus}
 \author{Sam Barrett, 1803086}
-
-\begin{document}
-
+\hfuzz 85pt
+\begin{document} 
 \maketitle
 
 \begin{enumerate}
@@ -13,8 +12,6 @@
 	\item
 	      \begin{enumerate}
 		      \item Prove that $(\texttt{add}\: \underline{2} \: \underline{3})$ $\beta$-reduces to $\underline{5}$, i.e. that $(\texttt{add}\: \underline{2} \: \underline{3}) \mapsto^*_{\beta} \underline{5}$. Describe each $\mapsto_\beta$ step.
-
-
 		            \begin{align*}
 			             &  & (\texttt{add} \: \underline{2} \: \underline{3}) &                                                                                                     \\
 			             &  & =                                                &   & ((\lambda a.\lambda b. \lambda f. \lambda x. a f ( b f x)) \: \underline{2} \: \underline{3}) & \\
@@ -35,7 +32,7 @@
 		            Definition of $ \texttt{mul}$:
 
 		            $$
-			            \lambda a. \lambda b. a ( \texttt{add} \: b) \underline{0}
+			            \texttt{mul} = \lambda a. \lambda b. a ( \texttt{add} \: b) \underline{0}
 		            $$
 
 		            \begin{align*}
@@ -64,8 +61,61 @@
 			             &  & =                                              &   & \underline{6}                                                                                                                    &
 		            \end{align*}
 	      \end{enumerate}
+\newpage
+	\item \textbf{*}
 
-	\item
+		$$
+		M ::= x | \lambda x.M | M M | \texttt{zero} | \texttt{succ}(M) | \texttt{pred}( M ) | \texttt{isZero}( M,N,P )
+		$$
+
+		$ \texttt{pred}(M) \mapsto_\beta \texttt{zero} \: \text{if} \: M \mapsto_\beta \texttt{zero} $
+
+		$ \texttt{pred}(M) \mapsto_\beta N \: \text{if} \: M \mapsto_\beta \texttt{succ}(N) $
+
+		$ \texttt{isZero}(M,N,P) \mapsto_\beta N \: \text{if} \: M \mapsto_\beta \texttt{zero} $
+
+		$ \texttt{isZero}(M,N,P) \mapsto_\beta P \: \text{if} \: \exists Q . M \mapsto_\beta \texttt{succ}(Q) $
+
+
+	\item 
+
+		$$ 
+		Y = \lambda f.( \lambda x. f(xx))( \lambda x.f(xx))
+		$$
+
+		$$
+		\texttt{aux} = \lambda a. \lambda x. \lambda y. ( \texttt{isZero} \: y \: \texttt{T} \: \texttt{F}) x ( a \: \texttt{succ}(x) \: \texttt{pred}(y))
+		$$
+		$$
+		\texttt{add'} = \textbf{ \texttt{Y}} \: \texttt{aux} 
+		$$
+
+		\begin{align*}
+		&& \texttt{add'} \: \bar{2} \: \bar{3} &\\
+		= && (\textbf{\texttt{Y} } \texttt{aux} \: ) \bar{2} \: \bar{3} &\\
+		= && (( \lambda f. ( \lambda x. f(xx))( \lambda x. f(xx))) \texttt{aux} \: ) \bar{2} \: \bar{3} &\\
+		\mapsto_\beta && ( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:) \bar{2} \: \bar{3} &\\
+		\mapsto_\beta && (\texttt{aux}( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{2} \: \bar{3} &\\
+		= && (( \lambda a. \lambda x. \lambda y. ( \texttt{isZero} \: y \: \texttt{T F}) x ( a \texttt{succ}(x) \texttt{pred}(y)))( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{2} \: \bar{3} &\\
+		\mapsto_\beta && ( \lambda x. \lambda y. ( \texttt{isZero} \: y \: \texttt{T F}) x (( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \texttt{succ}(x) \texttt{pred}(y)) \bar{2} \: \bar{3} &\\
+		\mapsto_\beta && ( \texttt{isZero} \: \bar{3} \: \texttt{T F}) \bar{2} \: (( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \texttt{succ}( \bar{2} ) \texttt{pred}( \bar{3} ) &\\
+		= && (( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{3} \: \bar{2} &\\
+		\mapsto_\beta && ( \texttt{aux}( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{3} \: \bar{2} &\\
+		= && (( \lambda a. \lambda x. \lambda y. ( \texttt{isZero} \: y \: \texttt{T F}) x (a \texttt{succ}(x) \: \texttt{pred}(y)))) \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{3} \: \bar{2} &\\
+		\mapsto_\beta && (( \lambda x. \lambda y. ( \texttt{isZero} \: y \: \texttt{T F}) x (( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \texttt{succ}(x)	\: \texttt{pred}(y))) \bar{3} \: \bar{2} &\\
+		\mapsto_\beta && ( \texttt{isZero} \: \bar{2} \: \texttt{T F}) \bar{3} ((( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \texttt{succ}( \bar{3} )	\texttt{pred}( \bar{2} )) &\\
+		= && (( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{4} \: \bar{1} &\\
+		\mapsto_\beta && ( \texttt{aux}( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{4} \: \bar{1} 	&\\
+		= && (( \lambda a. \lambda x. \lambda y. ( \texttt{isZero} \: y \texttt{T F}) x (a \texttt{succ}(x) \texttt{pred}(y)))(( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:))) \bar{4} \: \bar{1} &\\
+		\mapsto_\beta && ( \lambda x. \lambda y. ( \texttt{isZero} \: y \: \texttt{T F}) x ((( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \texttt{succ}(x) \texttt{pred}(y))) \bar{4} \: \bar{1} &\\
+		\mapsto_\beta && ( \texttt{isZero} \: \bar{1} \: \texttt{T F}) \bar{4} ((( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \texttt{succ}( \bar{4} ) \texttt{pred}( \bar{1} )) &\\
+		= && (( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{5} \: \bar{0} &\\
+		\mapsto_\beta && ( \texttt{aux}( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \bar{5} \: \bar{0} &\\
+		= && (( \lambda a. \lambda x. \lambda y. ( \texttt{isZero} \: y \: \texttt{T F}) x ( a \texttt{succ}(x) \texttt{pred}(y)))(( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:))) \bar{5} \: \bar{0} &\\
+		\mapsto_\beta && ( \lambda x. \lambda y. ( \texttt{isZero} \: y \: \texttt{T F}) x ((( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:))) \texttt{succ}(x) \texttt{pred}(y)) \bar{5} \: \bar{0} &\\
+		\mapsto_\beta && ( \texttt{isZero} \: \bar{0}  \: \texttt{T F}) \bar{5} ((( \lambda x. \texttt{aux}(x x) \:)( \lambda x. \texttt{aux}(x x) \:)) \texttt{succ}( \bar{5} ) \texttt{pred}( \bar{0} )) &\\
+		= && \bar{5}
+		\end{align*}
 \end{enumerate}
 
 
