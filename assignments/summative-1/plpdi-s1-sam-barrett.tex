@@ -11,6 +11,7 @@
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 
 \newcommand{\B}{\mathbb{B}}
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\x}{\times}
 \newcommand{\T}{\texttt{true}}
 \newcommand{\U}{\texttt{unify}}
@@ -261,30 +262,30 @@
 		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4 \}, G = { \langle x: \alpha_1, y: \alpha_3 ; (xy)(x \T); \alpha_4 \rangle  }
 	      \end{align}
 	      \begin{multline}
-		      C = C, G = \{ \langle x: \alpha_1, y: \alpha_3 ; xy ; \alpha_5 \rarr \alpha_4 \rangle, \langle x: \alpha_1, y:\alpha_3 ; x\T; \alpha_4 \rangle   \}
+		      C = C, G = \{ \langle x: \alpha_1, y: \alpha_3 ; xy ; \alpha_5 \rarr \alpha_4 \rangle, \langle x: \alpha_1, y:\alpha_3 ; x\T; \alpha_5 \rangle   \}
 	      \end{multline}
 	      \begin{multline}
 		      C = C, \\
-		      G = \{ \langle x: \alpha_1, y:\alpha_3 ; x ; \alpha_6 \rarr \alpha_5\rarr \alpha_4  \rangle , \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6  \rangle , \langle x: \alpha_1, y:\alpha_3 ; x\T; \alpha_4  \rangle  \} 
+		      G = \{ \langle x: \alpha_1, y:\alpha_3 ; x ; \alpha_6 \rarr \alpha_5\rarr \alpha_4  \rangle , \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6  \rangle , \langle x: \alpha_1, y:\alpha_3 ; x\T; \alpha_5  \rangle  \} 
 	      \end{multline}
 	      \begin{multline}
-		      C = C, G = \{ \langle x: \alpha_1, y:\alpha_3 ; x ; \alpha_6 \rarr \alpha_5\rarr \alpha_4  \rangle , \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6 \rangle,\\ \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_4  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}                                                      
+		      C = C, G = \{ \langle x: \alpha_1, y:\alpha_3 ; x ; \alpha_6 \rarr \alpha_5\rarr \alpha_4  \rangle , \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6 \rangle,\\ \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_5  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}                                                      
 	      \end{multline}
 	      \begin{multline}
 		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1 \},   \\ 
-		      G = \{ \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6 \rangle, \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_4  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}  
+		      G = \{ \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6 \rangle, \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_5  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}  
 	      \end{multline}
 	      \begin{multline}
 		      C = \{  \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3 \},                                                                  \\ 
-		      G = \{  \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_4  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}
+		      G = \{  \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_5  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}
 	      \end{multline}
 	      \begin{multline}
-		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1 \},                               \\
+		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_5 = \alpha_1 \},                               \\
 		      G = \{ \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}
 	      \end{multline}
 	      \begin{multline}
 		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \\
-		      \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1, \alpha_7 = \B \},                \\ 
+		      \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_5 = \alpha_1, \alpha_7 = \B \},                \\ 
 		      G = \emptyset
 	      \end{multline}
 
@@ -322,6 +323,63 @@
 	\color{red}
 	ERROR: Cannot have constraint of the form $\B = T_1 \rarr T_2$ ! Therefore term is not typable 
 
+	\color{black}
+\item 
+	\begin{enumerate}
+
+		\item 
+
+			Define a successor function $ \texttt{Succ}: \N \rarr \N$ that takes a number and computes its successor.
+
+			Where $\N$ is the type $ \texttt{Nat} = \lambda \alpha . ( \alpha \rarr \alpha) \rarr \alpha \rarr \alpha $
+			\begin{equation*}
+				\texttt{Succ} = \lambda a:\N. \lambda \alpha'. \lambda f: \alpha \rarr \alpha . \lambda x: \alpha . f(a \{ \alpha' \} fx)
+			\end{equation*}
+
+			And prove that it is well-typed: 
+
+			\small\begin{prooftree}
+				\AXC{$\Pi_1$}
+				\AXC{}
+				\RL{VAR}
+				\UIC{$ \Gamma \vdash f: \alpha' \rarr \alpha' $}
+				\RL{APP}
+				\BIC{ $ \Gamma, x: \alpha'  \vdash f(a \{ \alpha'  \} fx) : \alpha' $}
+				\RL{ABS}
+				\UIC{$ \Gamma, f: \alpha' \rarr \alpha' \vdash \lambda x: \alpha' . f(a \{ \alpha'  \} fx) : \alpha' \rarr \alpha' $}
+				\RL{ABS}
+				\UIC{ $ \Gamma \vdash \lambda f: \alpha' \rarr \alpha' . \lambda x: \alpha' . f(a \{ \alpha'  \} fx) : ( \alpha' \rarr \alpha' ) \rarr \alpha' \rarr \alpha'$}
+				\RL{TABS}
+			\UIC{$ a: \N \vdash \lambda \alpha'. \lambda f: \alpha' \rarr \alpha'. \lambda x: \alpha' . f(a \{ \alpha'  \} fx) : \forall \alpha' . ( \alpha' \rarr \alpha' ) \rarr \alpha'  \rarr \alpha'$}
+				\RL{ABS}
+				\UIC{ $\cdot \vdash \lambda a: \N . \lambda \alpha'. \lambda f: \alpha' \rarr \alpha', \lambda x: \alpha'. f(a \{ \alpha'  \} fx): \N \rarr \N $}
+			\end{prooftree}
+
+			Where $\Pi_1$ is: 
+
+			\small\begin{prooftree}
+				\AXC{}
+				\RL{VAR}
+				\UIC{$ \Gamma \vdash f: \alpha' \rarr \alpha' $}
+				\AXC{$ \Gamma \vdash a : \forall \alpha . ( \alpha \rarr \alpha ) \rarr \alpha \rarr \alpha$ }
+				\RL{TAPP}
+				\UIC{$ \Gamma \vdash a \{ \alpha'  \} : ( \alpha' \rarr \alpha' ) \rarr \alpha' \rarr \alpha' $}
+				\RL{APP}
+				\BIC{ $ \Gamma \vdash a \{ \alpha'  \} f: \alpha' \rarr \alpha' $}
+				\AXC{}
+				\RL{VAR}
+				\UIC{$ \Gamma \vdash x: \alpha' $}
+				\RL{APP}
+				\BIC{$ \Gamma \vdash (a \{ \alpha' \} f)x : \alpha' $}
+			\end{prooftree}
+
+		\item 
+			Define an addition function $ \texttt{Add} : \N \rarr \N \rarr \N$ that makes use of the successor function $ \texttt{Succ}$
+
+			\begin{equation*}
+				\texttt{Add} = \lambda a: \N. \lambda b: \N. \lambda \alpha' . \lambda f: \alpha' \rarr \alpha' . \lambda x: \alpha' . a \{ \alpha'  \} f(b \{ \alpha'  \} fx)	
+			\end{equation*}
+	\end{enumerate}
 \end{enumerate}
 
 \end{document}
