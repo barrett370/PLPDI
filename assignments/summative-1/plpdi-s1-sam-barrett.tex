@@ -5,12 +5,15 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
+\usepackage{xcolor}
 \usepackage{bussproofs}
 \EnableBpAbbreviations
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 
 \newcommand{\B}{\mathbb{B}}
 \newcommand{\x}{\times}
+\newcommand{\T}{\texttt{true}}
+\newcommand{\U}{\texttt{unify}}
 \newcommand{\rarr}{\rightarrow}
 \renewcommand{\r}[1]{\texttt{right}(#1)}
 \renewcommand{\l}[1]{\texttt{left}(#1)}
@@ -22,217 +25,302 @@
 
 \begin{enumerate}
 	\item
-		\begin{multline*}
-			M ::= \lambda x.M | M M | \texttt{true} | \texttt{false} | \texttt{if } M \texttt{ then } M \texttt{ else } M|  \\ 
-			\langle M,M \rangle | \texttt{spread}(M,M) | \texttt{left}(M) | \texttt{right}(M)
-		\end{multline*}
-		\begin{flalign*}
-			T ::= \B | T \rarr T | T \x T | T + T 
-		\end{flalign*}
+	      \begin{multline*}
+		      M ::= \lambda x.M | M M | \texttt{true} | \texttt{false} | \texttt{if } M \texttt{ then } M \texttt{ else } M|  \\
+		      \langle M,M \rangle | \texttt{spread}(M,M) | \texttt{left}(M) | \texttt{right}(M)
+	      \end{multline*}
+	      \begin{flalign*}
+		      T ::= \B | T \rarr T | T \x T | T + T
+	      \end{flalign*}
 
-		\begin{enumerate}
-			\item Extend call-by-value small-step operational semantics of the Curry-style Simply Typed $\lambda$-Calculus 
+	      \begin{enumerate}
+		      \item Extend call-by-value small-step operational semantics of the Curry-style Simply Typed $\lambda$-Calculus
 
-				Values, $ V ::= \lambda x:T.M | \texttt{true} | \texttt{false} | \langle M,M \rangle | \l{M} | \r{M} $
-				Evaluation Contexts
+		            Values, $ V ::= \lambda x:T.M | \texttt{true} | \texttt{false} | \langle M,M \rangle | \l{M} | \r{M} $
+		            Evaluation Contexts
 
-			\begin{multline*}
-				C::= \bullet | C M | V C | \texttt{if } C \texttt{ then } M \texttt{ else } M | \texttt{spread}(C,M) | \texttt{case}(C,M,M) 
-			\end{multline*}				
+		            \begin{multline*}
+			            C::= \bullet | C M | V C | \texttt{if } C \texttt{ then } M \texttt{ else } M | \texttt{spread}(C,M) | \texttt{case}(C,M,M)
+		            \end{multline*}
 
-				Rules:
+		            Rules:
 
-					\begin{prooftree}
-						\AxiomC{}
-						\RightLabel{$\beta$}
-						\UnaryInfC{$ (\lambda x:T.M)V \rarr_v M[x\backslash V] $}
-					\end{prooftree}
+		            \begin{prooftree}
+			            \AxiomC{}
+			            \RightLabel{$\beta$}
+			            \UnaryInfC{$ (\lambda x:T.M)V \rarr_v M[x\backslash V] $}
+		            \end{prooftree}
 
-					\begin{prooftree}
-						\AXC{}
-						\RightLabel{ITET}
-						\UIC{$ \texttt{if true then } M \texttt{ else } N \rarr_v M $}
-					\end{prooftree}										
+		            \begin{prooftree}
+			            \AXC{}
+			            \RightLabel{ITET}
+			            \UIC{$ \texttt{if true then } M \texttt{ else } N \rarr_v M $}
+		            \end{prooftree}
 
-					\begin{prooftree}
-						\AXC{}
-						\RL{ITEF}
-						\UIC{ $\texttt{if false then } M \texttt{ else } N \rarr_v N$}
-					\end{prooftree}
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{ITEF}
+			            \UIC{ $\texttt{if false then } M \texttt{ else } N \rarr_v N$}
+		            \end{prooftree}
 
-					\begin{prooftree}
-						\AXC{$M \rarr_v N$}
-						\RL{$ \texttt{CTX}_C$}
-						\UIC{$C[M] \rarr_v C[N]$}
-					\end{prooftree}
+		            \begin{prooftree}
+			            \AXC{$M \rarr_v N$}
+			            \RL{$ \texttt{CTX}_C$}
+			            \UIC{$C[M] \rarr_v C[N]$}
+		            \end{prooftree}
 
-					\begin{prooftree}
-						\AXC{$M \rarr_v \langle P,Q \rangle$}
-						\RL{SP}
-						\UIC{ $\texttt{spread}(M,N) \rarr_v NPQ $}
-					\end{prooftree}
+		            \begin{prooftree}
+			            \AXC{$M \rarr_v \langle P,Q \rangle$}
+			            \RL{SP}
+			            \UIC{ $\texttt{spread}(M,N) \rarr_v NPQ $}
+		            \end{prooftree}
 
-					\begin{prooftree}
-						\AXC{$M \rarr_v \texttt{left}(N)$}
-						\RL{CL}
-						\UIC{ $ \texttt{case}(M,P,Q) \rarr_v NP$}
-					\end{prooftree}
+		            \begin{prooftree}
+			            \AXC{$M \rarr_v \texttt{left}(N)$}
+			            \RL{CL}
+			            \UIC{ $ \texttt{case}(M,P,Q) \rarr_v NP$}
+		            \end{prooftree}
 
-					\begin{prooftree}
-						\AXC{$M \rarr_v \texttt{right}(N)$}
-						\RL{CR}
-						\UIC{ $ \texttt{case}(M,P,Q) \rarr_v NQ$}
-					\end{prooftree}
+		            \begin{prooftree}
+			            \AXC{$M \rarr_v \texttt{right}(N)$}
+			            \RL{CR}
+			            \UIC{ $ \texttt{case}(M,P,Q) \rarr_v NQ$}
+		            \end{prooftree}
 
-			\item 
-				Prove: 
-					\textbf{Note: unless stated otherwise $\Pi_n$ stands for the RHS of the bottom of the previous proof tree} 
-				\begin{multline*}
-				\texttt{spread}(( \lambda x. \langle x,x \rangle ) \texttt{true}, \lambda y. \lambda z. \texttt{if } y \texttt{ then } \texttt{left}(z) \texttt{ else } \texttt{right}(z))  \\
-				\rarr_v^* \texttt{left(true)}
-				\end{multline*}				 
+		      \item
+		            Prove:
+		            \textbf{Note: unless stated otherwise $\Pi_n$ stands for the RHS of the bottom of the previous proof tree}
+		            \begin{multline*}
+			            \texttt{spread}(( \lambda x. \langle x,x \rangle ) \texttt{true}, \lambda y. \lambda z. \texttt{if } y \texttt{ then } \texttt{left}(z) \texttt{ else } \texttt{right}(z))  \\
+			            \rarr_v^* \texttt{left(true)}
+		            \end{multline*}
 
-				\begin{prooftree}
-					\AXC{$ \langle \texttt{true,true} \rangle$}
-					\RL{ $ \beta $ }
-					\UIC{ $ \lambda x. \langle x,x \rangle ) \texttt{true}$}
-					\RL{ $ \texttt{spread}(\bullet,M)$ \;\;\;\; (1)}
-					\UIC{$\Pi_1$} 
-				\end{prooftree}
-				
-				Where $\Pi_1$ is defined as:
-				\begin{multline*}
-				\texttt{spread}(( \lambda x. \langle x,x \rangle ) \texttt{true},  
-					\lambda y. \lambda z. \texttt{if } y \texttt{ then } \texttt{left}(z) \texttt{ else } \texttt{right}(z)) \\
-					\rarr_v \texttt{spread}( \langle \texttt{true,true} \rangle , 
-					\texttt{if } y \texttt{ then } \texttt{left}(z) \texttt{ else } \texttt{right}(z)) 
-				\end{multline*}
-				
+		            \begin{prooftree}
+			            \AXC{$ \langle \texttt{true,true} \rangle$}
+			            \RL{ $ \beta $ }
+				    \UIC{ $ (\lambda x. \langle x,x \rangle ) \texttt{true}$}
+			            \RL{ $ \texttt{spread}(\bullet,M)$ \;\;\;\; (1)}
+			            \UIC{$\Pi_1$}
+		            \end{prooftree}
 
-				\begin{prooftree}
-				\AXC{}
-				\RL{SP \: \: \: (2)}
-				\UIC{ $\Pi_1 \rarr_v ( \lambda y. \lambda z. \texttt{if } y \texttt{ then } \l{z} \texttt{ else } \r{z}) \texttt{true true} $}
-				\end{prooftree}
+		            Where $\Pi_1$ is defined as:
+		            \begin{multline*}
+			            \texttt{spread}(( \lambda x. \langle x,x \rangle ) \texttt{true},
+			            \lambda y. \lambda z. \texttt{if } y \texttt{ then } \texttt{left}(z) \texttt{ else } \texttt{right}(z)) \\
+			            \rarr_v \texttt{spread}( \langle \texttt{true,true} \rangle ,
+			            \texttt{if } y \texttt{ then } \texttt{left}(z) \texttt{ else } \texttt{right}(z))
+		            \end{multline*}
 
-				\begin{prooftree}
-					\AXC{}
-					\RL{$\beta$ \;\;\; (3)}
-					\UIC{ $ \Pi_2 \rarr_v \lambda z. \texttt{if true}  \texttt{ then } \l{z} \texttt{ else } \r{z} $}
-				\end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{SP \: \: \: (2)}
+			            \UIC{ $\Pi_1 \rarr_v ( \lambda y. \lambda z. \texttt{if } y \texttt{ then } \l{z} \texttt{ else } \r{z}) \texttt{true true} $}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{$\beta$ \;\;\; (3)}
+			            \UIC{ $ \Pi_2 \rarr_v \lambda z. \texttt{if true}  \texttt{ then } \l{z} \texttt{ else } \r{z} $}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{$\beta$ \;\;\; (4)}
+			            \UIC{$ \Pi_3 \rarr_v \texttt{if } \texttt{true} \texttt{ then } \l{ \texttt{true}} \texttt{ else } \r{ \texttt{true}}$}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{ITET \;\;\; (5)}
+			            \UIC{ $ \Pi_4 \rarr_v \l{ \texttt{true}}$}
+		            \end{prooftree}
+
+
+		      \item
+		            Typing Rules:
+
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{VAR}
+			            \UIC{ $ \Gamma , x:T \vdash x:T $}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{$ \Gamma, x:T \vdash M:U$}
+			            \RL{ABS}
+			            \UIC{ $ \Gamma \vdash \lambda x:T.M:T \rarr U $}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{ $\Gamma \vdash M:T \rarr U$}
+			            \AXC{$\Gamma \vdash N:T$}
+			            \RL{APP}
+			            \BIC{ $ \Gamma \vdash MN :U $}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{T}
+			            \UIC{ $ \Gamma \vdash \texttt{true} : \B$}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{F}
+			            \UIC{ $\Gamma \vdash \texttt{false}: \B$}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{$ \Gamma \vdash M: \B$}
+			            \AXC{$ \Gamma \vdash N:T$}
+			            \AXC{$ \Gamma \vdash P:T$}
+			            \RL{ITE}
+			            \TIC{$ \Gamma \vdash \texttt{if } M \texttt{ then } N \texttt{ else } P :T$}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{$ \Gamma \vdash M:T$}
+			            \AXC{$ \Gamma \vdash M:U$}
+			            \RL{PAIR}
+			            \BIC{$ \Gamma \vdash \langle M,N \rangle : T \x U $}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{$ \Gamma \vdash M:T\x U$}
+			            \AXC{$ \Gamma \vdash N:T \rarr U \rarr Z$}
+			            \RL{SP}
+			            \BIC{$ \Gamma \vdash \texttt{spread}(M,N):Z$}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{$ \Gamma \vdash M:T$}
+			            \RL{L}
+			            \UIC{$ \Gamma \vdash \l{M} : T + U $}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{$ \Gamma \vdash M:U$}
+			            \RL{R}
+			            \UIC{$ \Gamma \vdash \r{M} : T + U $}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{$ \Gamma \vdash M:T$}
+			            \AXC{$ \Gamma \vdash P:T\rarr Z$}
+			            \RL{CASEL}
+			            \BIC{$ \Gamma \vdash \texttt{case}( \l{M},P,Q): Z$}
+		            \end{prooftree}
+
+		            \begin{prooftree}
+			            \AXC{$ \Gamma \vdash M:U$}
+			            \AXC{$ \Gamma \vdash Q:U\rarr Z$}
+			            \RL{CASER}
+			            \BIC{$ \Gamma \vdash \texttt{case}(\r{M},P,Q):Z$}
+		            \end{prooftree}
+
+		      \item
+		            Prove:
+		            $$
+			            \texttt{spread}(( \lambda x. \langle x,x \rangle ) \texttt{true}, \lambda y. \lambda z. \texttt{if } y \texttt{ then } \l{z} \texttt{ else } \r{z})
+		            $$ has type $\B + \B$
+
+		            \begin{prooftree}
+			            \AXC{}
+			            \RL{T}
+			            \UIC{$ \texttt{true}: \B$}
+			            \RL{L}
+			            \UIC{$\l{ \texttt{true}} : \B + U$}
+		            \end{prooftree}
+
+		            Where $U$ is of \textbf{any} type, $\therefore$ we can say $U \mapsto \B$ giving us $\l{ \texttt{true}} : \B + \B$
+
+	      \end{enumerate}
+
+	\item
+	      Is:
+
+	      \[
+		      ( \lambda x. \lambda y. ((xy)(x \texttt{true})
+	      \]
+
+	      typeable within the Simply Typed $\lambda$-Calculus?
+
+
+	      \underline{Wand's Algorithm:}
+
+	      \textbf{Note: where '$C=C$', $C$ has not changed since the previous line}
+
+	      \begin{align}
+		      C = \emptyset, G = { \langle \cdot ; M_0 ; \alpha_0 \rangle }
+	      \end{align}
+	      \begin{align}
+		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2 \}, G = { \langle x: \alpha_1; \lambda y. ((xy)(x \texttt{true})); \alpha_2 \rangle  }
+	      \end{align}
+	      \begin{align}
+		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4 \}, G = { \langle x: \alpha_1, y: \alpha_3 ; (xy)(x \T); \alpha_4 \rangle  }
+	      \end{align}
+	      \begin{multline}
+		      C = C, G = \{ \langle x: \alpha_1, y: \alpha_3 ; xy ; \alpha_5 \rarr \alpha_4 \rangle, \langle x: \alpha_1, y:\alpha_3 ; x\T; \alpha_4 \rangle   \}
+	      \end{multline}
+	      \begin{multline}
+		      C = C, \\
+		      G = \{ \langle x: \alpha_1, y:\alpha_3 ; x ; \alpha_6 \rarr \alpha_5\rarr \alpha_4  \rangle , \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6  \rangle , \langle x: \alpha_1, y:\alpha_3 ; x\T; \alpha_4  \rangle  \} 
+	      \end{multline}
+	      \begin{multline}
+		      C = C, G = \{ \langle x: \alpha_1, y:\alpha_3 ; x ; \alpha_6 \rarr \alpha_5\rarr \alpha_4  \rangle , \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6 \rangle,\\ \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_4  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}                                                      
+	      \end{multline}
+	      \begin{multline}
+		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1 \},   \\ 
+		      G = \{ \langle x: \alpha_1, y:\alpha_3 ; y ; \alpha_6 \rangle, \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_4  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}  
+	      \end{multline}
+	      \begin{multline}
+		      C = \{  \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3 \},                                                                  \\ 
+		      G = \{  \langle  x: \alpha_1, y:\alpha_3 ; x ; \alpha_7 \rarr \alpha_4  \rangle, \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}
+	      \end{multline}
+	      \begin{multline}
+		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1 \},                               \\
+		      G = \{ \langle x: \alpha_1, y:\alpha_3 ; \T ; \alpha_7 \rangle \}
+	      \end{multline}
+	      \begin{multline}
+		      C = \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \\
+		      \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1, \alpha_7 = \B \},                \\ 
+		      G = \emptyset
+	      \end{multline}
+
 	
-				\begin{prooftree}
-					\AXC{}
-					\RL{$\beta$ \;\;\; (4)}
-					\UIC{$ \Pi_3 \rarr_v \texttt{if } \texttt{true} \texttt{ then } \l{ \texttt{true}} \texttt{ else } \r{ \texttt{true}}$} 
-				\end{prooftree}
-		
-				\begin{prooftree}
-					\AXC{}
-					\RL{ITET \;\;\; (5)}
-					\UIC{ $ \Pi_4 \rarr_v \l{ \texttt{true}}$}
-				\end{prooftree}
-		
 
-			\item
-				Typing Rules:
-
-				\begin{prooftree}
-					\AXC{}
-					\RL{VAR}
-					\UIC{ $ \Gamma , x:T \vdash x:T $}
-				\end{prooftree}
-
-				\begin{prooftree}
-					\AXC{$ \Gamma, x:T \vdash M:U$}
-					\RL{ABS}
-					\UIC{ $ \Gamma \vdash \lambda x:T.M:T \rarr U $}
-				\end{prooftree}
-
-				\begin{prooftree}
-					\AXC{ $\Gamma \vdash M:T \rarr U$}
-					\AXC{$\Gamma \vdash N:T$}
-					\RL{APP}
-					\BIC{ $ \Gamma \vdash MN :U $}
-				\end{prooftree}
-
-				\begin{prooftree}
-					\AXC{}
-					\RL{T}
-					\UIC{ $ \Gamma \vdash \texttt{true} : \B$}
-				\end{prooftree}
-
-				\begin{prooftree}
-					\AXC{}	
-					\RL{F}
-					\UIC{ $\Gamma \vdash \texttt{false}: \B$}
-				\end{prooftree}
-
-				\begin{prooftree}
-					\AXC{$ \Gamma \vdash M: \B$}
-					\AXC{$ \Gamma \vdash N:T$}
-					\AXC{$ \Gamma \vdash P:T$}
-					\RL{ITE}
-					\TIC{$ \Gamma \vdash \texttt{if } M \texttt{ then } N \texttt{ else } P :T$} 
-				\end{prooftree}
+	\underline{Robinson's Algorithm:}
 	
-				\begin{prooftree}
-					\AXC{$ \Gamma \vdash M:T$}
-					\AXC{$ \Gamma \vdash M:U$}
-					\RL{PAIR}
-					\BIC{$ \Gamma \vdash \langle M,N \rangle : T \x U $}
-				\end{prooftree}
+	\begin{multline}
+		\U( \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \\ \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1, \alpha_7 = \B \}) 
+	\end{multline}
+	\begin{multline}
+		\U( \{ \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1, \alpha_7 = \B \}  ) \circ \\ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2 )
+	\end{multline}
 
-				\begin{prooftree}
-					\AXC{$ \Gamma \vdash M:T\x U$}
-					\AXC{$ \Gamma \vdash N:T \rarr U \rarr Z$}
-					\RL{SP}
-					\BIC{$ \Gamma \vdash \texttt{spread}(M,N):Z$}
-				\end{prooftree}
+	\begin{multline}
+		\U( \{ \alpha_6 \rarr \alpha_6 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1, \alpha_7 = \B \} )\circ \\ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
+	\end{multline}
 
-				\begin{prooftree}
-					\AXC{$ \Gamma \vdash M:T$}
-					\RL{L}
-					\UIC{$ \Gamma \vdash \l{M} : T + U $}
-				\end{prooftree}
+	\begin{multline}
+		\U( \{ \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_6 \rarr \alpha_5 \rarr \alpha_4, \alpha_7 = \B \} ) \circ \\ ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
+	\end{multline}
+	\begin{multline}
+		\U( \{ \alpha_7 \rarr \alpha_4 = \alpha_3 \rarr \alpha_5 \rarr \alpha_4, \alpha_7 = \B \}  ) \circ \\
+		( \alpha_6 \mapsto \alpha_3) \circ  ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
+	\end{multline}
+	\begin{multline}
+		\U( \{ \alpha_7 = \B, \alpha_7 = \alpha_3 \rarr \alpha_5, \alpha_4 = \alpha_4 \} ) \circ \\ 
+			( \alpha_6 \mapsto \alpha_3) \circ  ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
+	\end{multline}
+	\begin{multline}
+		\U( \{ \B = \alpha_3 \rarr \alpha_5, \alpha_4 = \alpha_4 \} ) \circ ( \alpha_7 \mapsto \B) \circ ( \alpha_6 \mapsto \alpha_3) \\
+			\circ  ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
+	\end{multline}
 
-				\begin{prooftree}
-					\AXC{$ \Gamma \vdash M:U$}
-					\RL{R}
-					\UIC{$ \Gamma \vdash \r{M} : T + U $}
-				\end{prooftree}
-
-				\begin{prooftree}
-					\AXC{$ \Gamma \vdash M:T$}
-					\AXC{$ \Gamma \vdash P:T\rarr Z$}
-					\RL{CASEL}
-					\BIC{$ \Gamma \vdash \texttt{case}( \l{M},P,Q): Z$}
-				\end{prooftree}
-
-				\begin{prooftree}
-					\AXC{$ \Gamma \vdash M:U$}
-					\AXC{$ \Gamma \vdash Q:U\rarr Z$}
-					\RL{CASER}
-					\BIC{$ \Gamma \vdash \texttt{case}(\r{M},P,Q):Z$}
-				\end{prooftree}
-
-			\item 
-				Prove:
-					$$
-\texttt{spread}(( \lambda x. \langle x,x \rangle ) \texttt{true}, \lambda y. \lambda z. \texttt{if } y \texttt{ then } \l{z} \texttt{ else } \r{z}) 
-$$ has type $\B + \B$
-
-			\begin{prooftree}
-				\AXC{}
-				\RL{T}
-				\UIC{$ \texttt{true}: \B$}
-				\RL{L}
-				\UIC{$\l{ \texttt{true}} : \B + U$}
-			\end{prooftree}
-
-			Where $U$ is of \textbf{any} type, $\therefore$ we can say $U \mapsto \B$ giving us $\l{ \texttt{true}} : \B + \B$ 
-		\end{enumerate}
-		
+	\color{red}
+	ERROR: Cannot have constraint of the form $\B = T_1 \rarr T_2$ ! Therefore term is not typable 
 
 \end{enumerate}
 
