@@ -11,7 +11,7 @@
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 
 \newcommand{\B}{\mathbb{B}}
-\newcommand{\N}{\mathbb{N}}
+\newcommand{\N}{\texttt{Nat}}
 \newcommand{\x}{\times}
 \newcommand{\T}{\texttt{true}}
 \newcommand{\U}{\texttt{unify}}
@@ -294,34 +294,34 @@
 	\underline{Robinson's Algorithm:}
 	
 	\begin{multline}
-		\U( \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \\ \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1, \alpha_7 = \B \}) 
+		\U( \{ \alpha_0 = \alpha_1 \rarr \alpha_2, \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \\ \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_5 = \alpha_1, \alpha_7 = \B \}) 
 	\end{multline}
 	\begin{multline}
-		\U( \{ \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1, \alpha_7 = \B \}  ) \circ \\ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2 )
-	\end{multline}
-
-	\begin{multline}
-		\U( \{ \alpha_6 \rarr \alpha_6 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_1, \alpha_7 = \B \} )\circ \\ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
+		\U( \{ \alpha_2 = \alpha_3 \rarr \alpha_4, \alpha_6 \rarr \alpha_5 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_5 = \alpha_1, \alpha_7 = \B \}  ) \circ \\ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2 )
 	\end{multline}
 
 	\begin{multline}
-		\U( \{ \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_6 \rarr \alpha_5 \rarr \alpha_4, \alpha_7 = \B \} ) \circ \\ ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
+		\U( \{ \alpha_6 \rarr \alpha_6 \rarr \alpha_4 = \alpha_1, \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_5 = \alpha_1, \alpha_7 = \B \} )\circ \\ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
+	\end{multline}
+
+	\begin{multline}
+		\U( \{ \alpha_6 = \alpha_3, \alpha_7 \rarr \alpha_4 = \alpha_6 \rarr \alpha_5 \rarr \alpha_5, \alpha_7 = \B \} ) \circ \\ ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
 	\end{multline}
 	\begin{multline}
-		\U( \{ \alpha_7 \rarr \alpha_4 = \alpha_3 \rarr \alpha_5 \rarr \alpha_4, \alpha_7 = \B \}  ) \circ \\
+		\U( \{ \alpha_7 \rarr \alpha_5 = \alpha_3 \rarr \alpha_5 \rarr \alpha_4, \alpha_7 = \B \}  ) \circ \\
 		( \alpha_6 \mapsto \alpha_3) \circ  ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
 	\end{multline}
 	\begin{multline}
-		\U( \{ \alpha_7 = \B, \alpha_7 = \alpha_3 \rarr \alpha_5, \alpha_4 = \alpha_4 \} ) \circ \\ 
+		\U( \{ \alpha_7 = \B, \alpha_7 = \alpha_3 \rarr \alpha_5, \alpha_5 = \alpha_4 \} ) \circ \\ 
 			( \alpha_6 \mapsto \alpha_3) \circ  ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
 	\end{multline}
 	\begin{multline}
-		\U( \{ \B = \alpha_3 \rarr \alpha_5, \alpha_4 = \alpha_4 \} ) \circ ( \alpha_7 \mapsto \B) \circ ( \alpha_6 \mapsto \alpha_3) \\
+		\U( \{ \B = \alpha_3 \rarr \alpha_5, \alpha_5 = \alpha_4 \} ) \circ ( \alpha_7 \mapsto \B) \circ ( \alpha_6 \mapsto \alpha_3) \\
 			\circ  ( \alpha_1 \mapsto \alpha_6 \rarr \alpha_5 \rarr \alpha_4) \circ ( \alpha_2 \mapsto \alpha_3 \rarr \alpha_4) \circ ( \alpha_0 \mapsto \alpha_1 \rarr \alpha_2) 
 	\end{multline}
 
 	\color{red}
-	ERROR: Cannot have constraint of the form $\B = T_1 \rarr T_2$ ! Therefore term is not typable 
+	ERROR: Cannot have constraint of the form $\B = T_1 \rarr T_2$ ! Therefore expression is not typable 
 
 	\color{black}
 \item 
@@ -331,18 +331,17 @@
 
 			Define a successor function $ \texttt{Succ}: \N \rarr \N$ that takes a number and computes its successor.
 
-			Where $\N$ is the type $ \texttt{Nat} = \lambda \alpha . ( \alpha \rarr \alpha) \rarr \alpha \rarr \alpha $
 			\begin{equation*}
-				\texttt{Succ} = \lambda a:\N. \lambda \alpha'. \lambda f: \alpha \rarr \alpha . \lambda x: \alpha . f(a \{ \alpha' \} fx)
+				\texttt{Succ} = \lambda a:\N. \lambda \alpha'. \lambda f: \alpha' \rarr \alpha' . \lambda x: \alpha' . f(a \{ \alpha' \} fx)
 			\end{equation*}
 
 			And prove that it is well-typed: 
 
 			\small\begin{prooftree}
-				\AXC{$\Pi_1$}
 				\AXC{}
 				\RL{VAR}
 				\UIC{$ \Gamma \vdash f: \alpha' \rarr \alpha' $}
+				\AXC{$\Pi_1$}
 				\RL{APP}
 				\BIC{ $ \Gamma, x: \alpha'  \vdash f(a \{ \alpha'  \} fx) : \alpha' $}
 				\RL{ABS}
@@ -377,8 +376,41 @@
 			Define an addition function $ \texttt{Add} : \N \rarr \N \rarr \N$ that makes use of the successor function $ \texttt{Succ}$
 
 			\begin{equation*}
-				\texttt{Add} = \lambda a: \N. \lambda b: \N. \lambda \alpha' . \lambda f: \alpha' \rarr \alpha' . \lambda x: \alpha' . a \{ \alpha'  \} f(b \{ \alpha'  \} fx)	
+				\texttt{Add} = \lambda a: \N. \lambda b: \N. a \{ \N \} \texttt{Succ} b
 			\end{equation*}
+
+			\begin{prooftree}
+				\AXC{$ \Pi $}
+				\AXC{ Proved above }
+				\UIC{$ \Gamma \vdash \texttt{Succ} : \N \rarr \N $}
+
+				\RL{APP}
+				\BIC{$ \Gamma \vdash a \{ \N \} \texttt{Succ} : \N \rarr \N$}
+
+				\AXC{}
+				\RL{VAR}
+				\UIC{$ \Gamma \vdash b: \N$}
+
+				\RL{APP}
+				\BIC{$ a:\N, b:\N \vdash a \{ \N \} \texttt{Succ}b : \N$}
+
+				\RL{ABS}
+				\UIC{$ a:\N \vdash  \lambda b:\N. a \{ \N \} \texttt{Succ}b : \N \rarr \N$}
+
+				\RL{ABS}
+				\UIC{ $ \cdot \vdash \lambda a: \N. \lambda b:\N. a \{ \N \} \texttt{Succ}b : \N \rarr \N \rarr \N $}
+				
+			
+			\end{prooftree}
+
+			$\Pi$ :
+			\begin{prooftree}
+				\AXC{}
+				\RL{VAR}
+				\UIC{ $ \Gamma \vdash a : \forall \alpha. ( \alpha \rarr \alpha ) \rarr \alpha \rarr \alpha $}
+				\RL{TAPP}
+				\UIC{$ \Gamma \vdash a \{ \N \} : ( \N \rarr \N ) \rarr \N \rarr \N $}
+			\end{prooftree}
 	\end{enumerate}
 \end{enumerate}
 
