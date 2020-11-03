@@ -90,7 +90,9 @@
 
 		      \item
 		            Prove:
-		            \textbf{Note: unless stated otherwise $\Pi_n$ stands for the RHS of the bottom of the previous proof tree}
+
+			    \textbf{Note: unless stated otherwise $\Pi_{n-1}$ stands for the RHS of the bottom of the previous proof tree}
+
 		            \begin{multline*}
 			            \texttt{spread}(( \lambda x. \langle x,x \rangle ) \texttt{true}, \lambda y. \lambda z. \texttt{if } y \texttt{ then } \texttt{left}(z) \texttt{ else } \texttt{right}(z))  \\
 			            \rarr_v^* \texttt{left(true)}
@@ -101,10 +103,10 @@
 			            \RL{ $ \beta $ }
 				    \UIC{ $ (\lambda x. \langle x,x \rangle ) \texttt{true}$}
 			            \RL{ $ \texttt{spread}(\bullet,M)$ \;\;\;\; (1)}
-			            \UIC{$\Pi_1$}
+			            \UIC{$\Pi$}
 		            \end{prooftree}
 
-		            Where $\Pi_1$ is defined as:
+		            Where $\Pi$ is defined as:
 		            \begin{multline*}
 			            \texttt{spread}(( \lambda x. \langle x,x \rangle ) \texttt{true},
 			            \lambda y. \lambda z. \texttt{if } y \texttt{ then } \texttt{left}(z) \texttt{ else } \texttt{right}(z)) \\
@@ -122,7 +124,7 @@
 		            \begin{prooftree}
 			            \AXC{}
 			            \RL{$\beta$ \;\;\; (3)}
-			            \UIC{ $ \Pi_2 \rarr_v \lambda z. \texttt{if true}  \texttt{ then } \l{z} \texttt{ else } \r{z} $}
+				    \UIC{ $ \Pi_2 \rarr_v (\lambda z. \texttt{if true}  \texttt{ then } \l{z} \texttt{ else } \r{z}) \T $}
 		            \end{prooftree}
 
 		            \begin{prooftree}

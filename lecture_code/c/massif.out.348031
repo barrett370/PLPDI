@@ -1,0 +1,250 @@
+desc: (none)
+cmd: ./a.out
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=145847
+mem_heap_B=40
+mem_heap_extra_B=16
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=145881
+mem_heap_B=44
+mem_heap_extra_B=36
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=145918
+mem_heap_B=84
+mem_heap_extra_B=52
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=145952
+mem_heap_B=88
+mem_heap_extra_B=72
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=145989
+mem_heap_B=128
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=146031
+mem_heap_B=168
+mem_heap_extra_B=104
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=146065
+mem_heap_B=172
+mem_heap_extra_B=124
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=146102
+mem_heap_B=212
+mem_heap_extra_B=140
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=146136
+mem_heap_B=216
+mem_heap_extra_B=160
+mem_stacks_B=0
+heap_tree=detailed
+n9: 216 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n0: 40 0x1092E7: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109320: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109359: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109392: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x1093CB: main (in /home/sam/mess/c/a.out)
+ n0: 4 0x1092FC: main (in /home/sam/mess/c/a.out)
+ n0: 4 0x109335: main (in /home/sam/mess/c/a.out)
+ n0: 4 0x1093A7: main (in /home/sam/mess/c/a.out)
+ n0: 4 0x1093E0: main (in /home/sam/mess/c/a.out)
+#-----------
+snapshot=10
+#-----------
+time=146173
+mem_heap_B=256
+mem_heap_extra_B=176
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=146215
+mem_heap_B=296
+mem_heap_extra_B=192
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=146257
+mem_heap_B=336
+mem_heap_extra_B=208
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=146408
+mem_heap_B=376
+mem_heap_extra_B=224
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=146442
+mem_heap_B=380
+mem_heap_extra_B=244
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=146579
+mem_heap_B=420
+mem_heap_extra_B=260
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=146613
+mem_heap_B=424
+mem_heap_extra_B=280
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=146663
+mem_heap_B=464
+mem_heap_extra_B=296
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=146697
+mem_heap_B=468
+mem_heap_extra_B=316
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=146822
+mem_heap_B=508
+mem_heap_extra_B=332
+mem_stacks_B=0
+heap_tree=detailed
+n12: 508 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 120 0x1091F9: eval (in /home/sam/mess/c/a.out)
+  n1: 40 0x1091B7: eval (in /home/sam/mess/c/a.out)
+   n0: 40 0x1094B1: main (in /home/sam/mess/c/a.out)
+  n1: 40 0x1091DF: eval (in /home/sam/mess/c/a.out)
+   n0: 40 0x1094B1: main (in /home/sam/mess/c/a.out)
+  n0: 40 0x1094B1: main (in /home/sam/mess/c/a.out)
+ n1: 40 0x109295: eval (in /home/sam/mess/c/a.out)
+  n0: 40 0x1094C1: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x1092E7: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109320: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109359: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109392: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x1093CB: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109404: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x10943D: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109476: main (in /home/sam/mess/c/a.out)
+ n0: 16 in 4 places, all below massif's threshold (1.00%)
+ n1: 12 0x10920E: eval (in /home/sam/mess/c/a.out)
+  n0: 12 in 3 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=20
+#-----------
+time=146854
+mem_heap_B=512
+mem_heap_extra_B=352
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=148039
+mem_heap_B=1536
+mem_heap_extra_B=360
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=150882
+mem_heap_B=1536
+mem_heap_extra_B=360
+mem_stacks_B=0
+heap_tree=peak
+n12: 1536 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E1E03: _IO_file_doallocate (in /usr/lib/libc-2.32.so)
+  n1: 1024 0x48F070F: _IO_doallocbuf (in /usr/lib/libc-2.32.so)
+   n1: 1024 0x48EF8A7: _IO_file_overflow@@GLIBC_2.2.5 (in /usr/lib/libc-2.32.so)
+    n1: 1024 0x48EE955: _IO_file_xsputn@@GLIBC_2.2.5 (in /usr/lib/libc-2.32.so)
+     n1: 1024 0x48D9828: __vfprintf_internal (in /usr/lib/libc-2.32.so)
+      n1: 1024 0x48C5BBE: printf (in /usr/lib/libc-2.32.so)
+       n0: 1024 0x1094E2: main (in /home/sam/mess/c/a.out)
+ n3: 120 0x1091F9: eval (in /home/sam/mess/c/a.out)
+  n1: 40 0x1091B7: eval (in /home/sam/mess/c/a.out)
+   n0: 40 0x1094B1: main (in /home/sam/mess/c/a.out)
+  n1: 40 0x1091DF: eval (in /home/sam/mess/c/a.out)
+   n0: 40 0x1094B1: main (in /home/sam/mess/c/a.out)
+  n0: 40 0x1094B1: main (in /home/sam/mess/c/a.out)
+ n1: 40 0x109295: eval (in /home/sam/mess/c/a.out)
+  n0: 40 0x1094C1: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x1092E7: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109320: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109359: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109392: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x1093CB: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109404: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x10943D: main (in /home/sam/mess/c/a.out)
+ n0: 40 0x109476: main (in /home/sam/mess/c/a.out)
+ n0: 32 in 6 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=23
+#-----------
+time=150882
+mem_heap_B=512
+mem_heap_extra_B=352
+mem_stacks_B=0
+heap_tree=empty
