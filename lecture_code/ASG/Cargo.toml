@@ -1,5 +1,5 @@
 [package]
-name = "ASG"
+name = "asg"
 version = "0.1.0"
 authors = ["sam <barrett370@gmail.com>"]
 edition = "2018"
