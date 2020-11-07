@@ -12,8 +12,15 @@
 2.
 
     ```SPARTAN
-    new z = LAMBDA(; x. LAMBDA(;y. PLUS(x,y))) in
+    new z = LAMBDA(; x. LAMBDA(; y. PLUS(x,y))) in 
     SEC(ASSIGN(z, APP(DEREF(z),1)) ;
     APP(DEREF(z),2))
     ```
+alternatively 
 
+``` 
+new z = LAMBDA(;x. LAMBDA(;y.  PLUS(x,y))) in 
+bind a = ASSIGN(z,APP(DEREF(z),1)) in 
+bind b = APP(DEREF(z),2) in
+SEC(a;b)
+```
