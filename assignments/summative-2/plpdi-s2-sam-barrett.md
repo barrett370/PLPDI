@@ -61,3 +61,47 @@ Created the following ASG:
 \pagebreak
 ![Evaluation Stage 9](ASGE9.png)
 \pagebreak
+
+## Question B
+
+```OCaml
+var z = ref(func x y -> x + y)
+z := (!z)(1)
+(!z)(2)
+```
+
+1. Draw the AST of this program
+
+![AST](./b1.jpg)
+\pagebreak
+
+2. Draw the ASG of this program
+
+![Initial ASG](BASG1.png)
+\pagebreak
+
+3. Draw the intermediate ASGs in the evaluation of this program
+
+**Note Diagrams read from left to right on the page**
+
+![Initial Stage](./BASG1.png)
+\pagebreak
+![Evaluation Stage 2](./BASGE2.png)
+\pagebreak
+![Evaluation Stage 3](./BASGE3.png)
+\pagebreak
+![Evaluation Stage 4](./BASGE4.png)
+\pagebreak
+![Evaluation Stage 5](./BASGE5.png)
+\pagebreak
+![Evaluation Stage 6](./BASGE6.png)
+\pagebreak
+![Evaluation Stage 7](./BASGE7.png)
+\pagebreak
+![Evaluation Stage 8](./BASGE8.png)
+\pagebreak
+
+4. Perform type inference on this program
+
+![Type inference](./b4.jpg)
+
