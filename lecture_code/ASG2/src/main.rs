@@ -68,23 +68,23 @@ fn main() {
     //)
     //.eval(&None);
     //println!("{:?}", res);
-    for _ in 0..100000000 {
-        Expr::letexpr(
-        Expr::Var('x'),
-        Expr::plus(Expr::Value(1), Expr::Value(2)),
-        Expr::plus(Expr::Var('x'), Expr::Var('x')),
-    )
-    .eval(&None);
-        }
+//    for _ in 0..100000000 {
+//        Expr::letexpr(
+//        Expr::Var('x'),
+//        Expr::plus(Expr::Value(1), Expr::Value(2)),
+//        Expr::plus(Expr::Var('x'), Expr::Var('x')),
+//    )
+//    .eval(&None);
+//        }
 
     // ASG 
     
     let a1 = Expr::plus(Expr::Value(1),Expr::Value(2));
-    let asg = Expr::plus(a1.clone(),a1).eval(&None);
-    println!("{:?}", asg);
-    //for _ in 0..100000000{
-    //   Expr::plus(a1.clone(),a1.clone()).eval(&None);
-    //}
+    //let asg = Expr::plus(a1.clone(),a1).eval(&None);
+    //println!("{:?}", asg);
+    for _ in 0..100000000{
+       Expr::plus(a1.clone(),a1.clone()).eval(&None);
+    }
   
     
     // mul test

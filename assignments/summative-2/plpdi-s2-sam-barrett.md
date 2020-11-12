@@ -10,6 +10,8 @@ twice f 1
 
 1. Draw the AST
 
+**Note: Variable (named) root nodes represent parameters**
+
 ![`f` and `twice`](diag1.png)
 \pagebreak
 
@@ -77,6 +79,15 @@ z := (!z)(1)
 
 2. Draw the ASG of this program
 
+This ASG was created using the SPARTAN visualiser with the code:
+
+>```SPARTAN
+>new z = LAMBDA(;x. LAMBDA(;y.  PLUS(x,y))) in
+>bind a = ASSIGN(z,APP(DEREF(z),1)) in
+>bind b = APP(DEREF(z),2) in
+>SEC(a;b)
+>```
+
 ![Initial ASG](BASG1.png)
 \pagebreak
 
@@ -104,4 +115,36 @@ z := (!z)(1)
 4. Perform type inference on this program
 
 ![Type inference](./b4.jpg)
+\pagebreak
 
+### Static Vs Dynamic Typing
+
+In statically typed languages, such as C or Rust, one is required to specify the type of any variable, function parameter or return argument explicitly.
+In dynamically typed languages, such as Python, a variable or method can be said to have `Any` type. This allows for less verbose, more flexible code. Dynamic typing in and of itself does not lead to runtime errors, instead it makes it much easier for a programmer to accidentally cause them.
+
+For example, in python you could define a function:
+
+```python
+f = lambda x,y: x**y
+```
+
+And call it with:
+```python
+f(2,"foo")
+```
+leading to a runtime error
+
+Whereas, in Rust, a dynamically typed language (that does not attempt to cast explicitly defined variables), The compilation fails as it expects an `i32` not a `str`
+
+```rust
+fn f(x:i32, y:i32) -> i32 {
+    x^y
+}
+
+fn main() {
+    f(1,"foo");
+        ^^^^^ expected `i32`, found `&str`
+}
+```
+
+In the context of this example, we are assuming the type of `+`. If instead the operator had the type `str -> str -> str` the program would fail at runtime as we attempted to pass integers. If the compiler knew the type of `+`, i.e. in our graph `+` was already labelled `str -> str -> str` then our type inference for the rest of the program would fail, leading to a compilation error rather than a runtime error.
