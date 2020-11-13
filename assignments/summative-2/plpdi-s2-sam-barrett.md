@@ -20,7 +20,7 @@ twice f 1
 
 2. Draw the ASG
 
-I created the ASG of this program using the online ASG-based abstraction machine. 
+I created the ASG of this program using the SPARTAN online ASG-based abstraction machine.
 
 The following _SPARTAN_ statement:
 
@@ -137,13 +137,13 @@ leading to a runtime error
 Whereas, in Rust, a dynamically typed language (that does not attempt to cast explicitly defined variables), The compilation fails as it expects an `i32` not a `str`
 
 ```rust
-fn f(x:i32, y:i32) -> i32 {
-    x^y
-}
-
 fn main() {
-    f(1,"foo");
-        ^^^^^ expected `i32`, found `&str`
+
+    let f = |x:i32,y:i32| { x^y };
+
+    f(1,2); // Ok
+    f(2,"foo"); // Compilation Error
+
 }
 ```
 
