@@ -3,6 +3,7 @@
 \documentclass{article}
 \usepackage{amsmath,amssymb}
 \usepackage{tikz}
+\usepackage{enumitem}
 \usetikzlibrary{arrows,shapes,automata,petri,positioning,calc}
 \tikzset{
     place/.style={
@@ -29,6 +30,17 @@
         draw=black,
         fill=green!20,
         minimum size=10mm,
+    },
+    trace/.style={
+        draw,
+        -,>=stealth',
+        semithick, 
+    },
+    trace-point/.style={
+        circle,
+        draw=black,
+        fill=black,
+        minimum size=3pt
     },
     every edge/.style={
         draw,
@@ -86,7 +98,116 @@
             \caption{Question 1 Transition System}%
             \label{fig:1}
         \end{figure}
+
     \item 
+        \begin{enumerate}[label=(\alph*)]
+            \item whenever $a$ is true, $b$ is also true.
+                \begin{equation}
+                    \Box(a \rightarrow b)
+                \end{equation}
+                %This is an example of a safety property. This is the case as given a finite prefix $\sigma'$ including a state satisfying $a \wedge \neg b$, no infinite path can extend $\sigma'$ such that this property is satisfied.
+                This is an example of a invariant. This is the case as it must always be true and it can be checked separately in each state.
+                \begin{figure}[htpb]
+                    \centering
+                    \begin{tikzpicture}
+                        \node [trace-point, label=above:$\{a\wedge b\}$] (P1) {};
+                        \node [trace-point,right of=P1,label=above:\color{red}$\{a\}$] (P2) {};
+                        \node [trace-point,right of=P2,label=above:$\{a\wedge b\}$] (P3) {};
+                        \node [trace-point,right of=P3,label=above:$\{a\wedge b\}$] at (5,0) (P4) {};
+                        \node [trace-point,right of=P4,label=above:$\{b\}$] (P5) {};
+                        \draw (P1) edge[-] node {} (P2);
+                        \draw (P2) edge[-] node {} (P3);
+                        \draw (P3) edge[-] node {$\cdots$} (P4);
+                        \draw (P4) edge[-] node {} (P5);
+                    \end{tikzpicture}
+                    \caption{2 a, counterexample trace}%
+                    \label{fig:2a}
+                \end{figure}
+            \item $a$ is eventually true
+                \begin{equation}
+                    \Diamond a
+                \end{equation}
+                This is an example of a liveness property as any finite word can be extended to satisfy this property. Any trace where $a$ never appears can be extended with a single case where $a$ is true \& it will now satisfy the property.
+                \begin{figure}[htpb]
+                    \centering
+                    \begin{tikzpicture}
+                        \node [trace-point, label=above:\color{red}$\{\neg a\}$] (P1) {};
+                        \node [trace-point,right of=P1,label=above:\color{red}$\{b\}$] (P2) {};
+                        \node [trace-point,right of=P2,label=above:\color{red}$\{\neg a\wedge b\}$] (P3) {};
+                        \node [trace-point,right of=P3,label=above:\color{red}$\{\neg b\}$] at (5,0) (P4) {};
+                        \node [trace-point,right of=P4,label=above:\color{red}$\{b\}$] (P5) {};
+                        \draw (P1) edge[-] node {} (P2);
+                        \draw (P2) edge[-] node {} (P3);
+                        \draw (P3) edge[-] node {} (P4);
+                        \draw (P4) edge[-] node {} (P5);
+                    \end{tikzpicture}
+                    \caption{2 b, counterexample trace}%
+                    \label{fig:2b}
+                \end{figure}
+            \item $a$ eventually comes true but is then subsequently false again.
+                \begin{equation}
+                    \Diamond a \rightarrow (a \wedge \bigcirc \neg a)
+                \end{equation}
+                This is a safety property as any violation produces a trace that cannot be extended into a satisfactory trace.
+                \begin{figure}[htpb]
+                    \centering
+                    \begin{tikzpicture}
+                        \node [trace-point, label=above:$\{ b\}$] (P1) {};
+                        \node [trace-point,right of=P1,label=above:\color{red}$\{a\}$] (P2) {};
+                        \node [trace-point,right of=P2,label=above:\color{red}$\{a\}$] (P3) {};
+                        \node [trace-point,right of=P3,label=above:$\{a\}$] at (5,0) (P4) {};
+                        \node [trace-point,right of=P4,label=above:$\{b\}$] (P5) {};
+                        \draw (P1) edge[-] node {} (P2);
+                        \draw (P2) edge[-] node {} (P3);
+                        \draw (P3) edge[-] node {$\cdots$} (P4);
+                        \draw (P4) edge[-] node {} (P5);
+                    \end{tikzpicture}
+                    \caption{2 c, counterexample trace}%
+                    \label{fig:2c}
+                \end{figure}
+            \item $a$ and $b$ are both true infinitely often, but never simultaneously.
+                \begin{equation}
+                    \Box \Diamond a \wedge \Box\Diamond b \wedge \Box\neg(a \wedge b)
+                \end{equation}
+                This is a safety property as if the final clause of the property ($\Box \neg(a\wedge b)$) is unsatisfied in one state, the entire trace is invalidated and cannot be extended into a valid trace.
+                \begin{figure}[htpb]
+                    \centering
+                    \begin{tikzpicture}
+                        \node [trace-point, label=above:$\{ a\}$] (P1) {};
+                        \node [trace-point,right of=P1,label=above:$\{b\}$] (P2) {};
+                        \node [trace-point,right of=P2,label=above:$\{a\}$] (P3) {};
+                        \node [trace-point,right of=P3,label=above:$\{a\}$] at (5,0) (P4) {};
+                        \node [trace-point,right of=P4,label=above:\color{red}$\{a\wedge b\}$] (P5) {};
+                        \draw (P1) edge[-] node {} (P2);
+                        \draw (P2) edge[-] node {} (P3);
+                        \draw (P3) edge[-] node {$\cdots$} (P4);
+                        \draw (P4) edge[-] node {} (P5);
+                    \end{tikzpicture}
+                    \caption{2 d, counterexample trace}%
+                    \label{fig:2d}
+                \end{figure}
+            \item the first occurrence (if any) of $a$ is immediately followed by $b$
+                \begin{equation}
+                    a \vee b \cup a \rightarrow \bigcirc b
+                \end{equation}
+                This is an example of a safety property as any finite word $\sigma'$ that does not satisfy the property cannot be extended by any infinite word such that it now satisfies the property.
+                \begin{figure}[htpb]
+                    \centering
+                    \begin{tikzpicture}
+                        \node [trace-point, label=above:$\{ a\}$] (P1) {};
+                        \node [trace-point,right of=P1,label=above:$\{a\}$] (P2) {};
+                        \node [trace-point,right of=P2,label=above:\color{red}$\{\neg a\}$] (P3) {};
+                        \node [trace-point,right of=P3,label=above:$\{a\}$] at (5,0) (P4) {};
+                        \node [trace-point,right of=P4,label=above:$\{b\}$] (P5) {};
+                        \draw (P1) edge[-] node {} (P2);
+                        \draw (P2) edge[-] node {} (P3);
+                        \draw (P3) edge[-] node {$\cdots$} (P4);
+                        \draw (P4) edge[-] node {} (P5);
+                    \end{tikzpicture}
+                    \caption{2 e, counterexample trace}%
+                    \label{fig:2e}
+                \end{figure}
+        \end{enumerate}
 
     \item We first negate the safety property, $\Psi$, giving us $\neg\Psi$ in Equation~\ref{eq:negpsi}. Constructing a NFA of this property gives us $\mathcal{A}_{\neg\Psi}$ shown in Figure~\ref{fig:3-nfa}. The product of $M$ and $\mathcal{A}_{\neg\Psi}$, $M \otimes \mathcal{A}_{\neg\Psi}$ is shown in Figure~\ref{fig:3-ans}. This graph has an accept state so therefore this property does not hold for the LTS $M$.
         \begin{equation}
@@ -95,7 +216,6 @@
         \begin{figure}[htpb]
             \centering
             \begin{tikzpicture}
-
                 \node [lts,initial, label=below:$\{b\}$] (S0) {$S_0$};
 
                 \node [lts, right of=S0, label=below:$\{a\}$] (S1) {$S_1$};

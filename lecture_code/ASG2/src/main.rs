@@ -79,7 +79,7 @@ fn main() {
 
     // ASG 
     
-    let a1 = Expr::plus(Expr::Value(1),Expr::Value(2));
+    let a1 = Expr::plus(Expr::Value(1.0),Expr::Value(2.2));
     //let asg = Expr::plus(a1.clone(),a1).eval(&None);
     //println!("{:?}", asg);
     for _ in 0..100000000{
