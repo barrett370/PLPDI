@@ -1,8 +1,7 @@
-
-
 \documentclass{article}
 \usepackage{amsmath,amssymb}
 \usepackage{tikz}
+\usepackage{fancyhdr}
 \usepackage{enumitem}
 \usetikzlibrary{arrows,shapes,automata,petri,positioning,calc}
 \tikzset{
@@ -54,7 +53,11 @@
 }
 
 \begin{document}
-
+\pagestyle{fancy}
+\headheight=14pt
+\fancyhf{}
+\lhead{Sam Barrett, 1803086}
+\rhead{PLPDI Assignment 3}
 \begin{enumerate}
     \item See Figure~\ref{fig:1} for labelled transition system
         \begin{figure}[htpb]
@@ -62,7 +65,7 @@
                 \begin{tikzpicture}
 
                     % Nodes and position definitions
-                    \node [place] (N1) {$l_0,l_1,0$};
+                    \node [place] (N1) {$l_0,l_0,0$};
                     \coordinate[node distance=1.1cm,left of=N1] (left-N1);
                     \coordinate[node distance=1.5cm,right of=N1] (right-N1);
                     \coordinate[node distance=0.5cm,above of=N1] (above-N1);
@@ -106,7 +109,9 @@
                     \Box(a \rightarrow b)
                 \end{equation}
                 %This is an example of a safety property. This is the case as given a finite prefix $\sigma'$ including a state satisfying $a \wedge \neg b$, no infinite path can extend $\sigma'$ such that this property is satisfied.
-                This is an example of a invariant. This is the case as it must always be true and it can be checked separately in each state.
+                This is an example of a invariant. This is the case as must be true in every state and it can be checked separately in each state.
+
+                In Figure~\ref{fig:2a} you can see a counterexample trace, if there exists a state which satisfies $a \wedge \neg b$ then the property is not satisfied by the trace.
                 \begin{figure}[htpb]
                     \centering
                     \begin{tikzpicture}
@@ -128,6 +133,8 @@
                     \Diamond a
                 \end{equation}
                 This is an example of a liveness property as any finite word can be extended to satisfy this property. Any trace where $a$ never appears can be extended with a single case where $a$ is true \& it will now satisfy the property.
+
+                In Figure~\ref{fig:2b} a counterexample example trace is given. If, over an infinite trace, there does not exist a state where $a$ is true: The property is not satisfied by the trace.
                 \begin{figure}[htpb]
                     \centering
                     \begin{tikzpicture}
@@ -148,7 +155,11 @@
                 \begin{equation}
                     \Diamond a \rightarrow (a \wedge \bigcirc \neg a)
                 \end{equation}
+
                 This is a safety property as any violation produces a trace that cannot be extended into a satisfactory trace.
+
+                Figure~\ref{fig:2c} shows that if $a$ occurs in two consecutive states then the trace does not satisfy the property. I found this easier to think about in the form $\Box \neg a \vee (a \wedge \bigcirc\neg a)$ Where a satisfactory trace can either be infinitely $\neg a$ or if $a$ occurs, the following state must satisfy $\neg a$.
+
                 \begin{figure}[htpb]
                     \centering
                     \begin{tikzpicture}
@@ -170,6 +181,8 @@
                     \Box \Diamond a \wedge \Box\Diamond b \wedge \Box\neg(a \wedge b)
                 \end{equation}
                 This is a safety property as if the final clause of the property ($\Box \neg(a\wedge b)$) is unsatisfied in one state, the entire trace is invalidated and cannot be extended into a valid trace.
+
+                Figure~\ref{fig:2d} shows that if a state exists that satisfies $a\wedge b$ then the overall property is not held by the trace.
                 \begin{figure}[htpb]
                     \centering
                     \begin{tikzpicture}
@@ -191,10 +204,12 @@
                     a \vee b \cup a \rightarrow \bigcirc b
                 \end{equation}
                 This is an example of a safety property as any finite word $\sigma'$ that does not satisfy the property cannot be extended by any infinite word such that it now satisfies the property.
+
+                Figure~\ref{fig:2e} illustrates that if the first state satisfying $a$ is not immediately followed by a state satisfying $b$ then the trace does not satisfy the property.
                 \begin{figure}[htpb]
                     \centering
                     \begin{tikzpicture}
-                        \node [trace-point, label=above:$\{ a\}$] (P1) {};
+                        \node [trace-point, label=above:$\{ b\}$] (P1) {};
                         \node [trace-point,right of=P1,label=above:$\{a\}$] (P2) {};
                         \node [trace-point,right of=P2,label=above:\color{red}$\{\neg a\}$] (P3) {};
                         \node [trace-point,right of=P3,label=above:$\{a\}$] at (5,0) (P4) {};
@@ -209,7 +224,7 @@
                 \end{figure}
         \end{enumerate}
 
-    \item We first negate the safety property, $\Psi$, giving us $\neg\Psi$ in Equation~\ref{eq:negpsi}. Constructing a NFA of this property gives us $\mathcal{A}_{\neg\Psi}$ shown in Figure~\ref{fig:3-nfa}. The product of $M$ and $\mathcal{A}_{\neg\Psi}$, $M \otimes \mathcal{A}_{\neg\Psi}$ is shown in Figure~\ref{fig:3-ans}. This graph has an accept state so therefore this property does not hold for the LTS $M$.
+    \item We first negate the safety property, $\Psi$, giving us $\neg\Psi$ in Equation~\ref{eq:negpsi}. Constructing an NFA of this property gives us $\mathcal{A}_{\neg\Psi}$ shown in Figure~\ref{fig:3-nfa}. The product of $M$ and $\mathcal{A}_{\neg\Psi}$, $M \otimes \mathcal{A}_{\neg\Psi}$ is shown in Figure~\ref{fig:3-ans}. This system has a reachable accept state so therefore this property does not hold for all possible traces over the LTS $M$, $M \not\models \Box\left(a \rightarrow \bigcirc\Box b\right)$.
         \begin{equation}
             \Psi = \Box\left(a \rightarrow \bigcirc\Box b\right)
         \end{equation}
