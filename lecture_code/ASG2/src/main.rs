@@ -29,7 +29,7 @@ where
         Expr::Let(Box::new(v1), Box::new(e1), Box::new(e2))
     }
 
-    fn eval(self, ctx: &Option<HashMap<char, T>>) -> Result<T,&'static str>
+    fn eval(self, ctx: &Option<HashMap<char, T>>) -> Result<T, &'static str>
     where
         T: Add<Output = T> + Mul<Output = T> + Copy,
     {
@@ -57,49 +57,46 @@ where
 }
 
 fn main() {
-    let res = Expr::plus(Expr::Value(2), Expr::Value(3)).eval(&None);
-    println!("{:?}", res);
-    
-    //let x = 1 + 2 in x + x 
-    let res = Expr::letexpr(
-        Expr::Var('x'),
-        Expr::plus(Expr::Value(1), Expr::Value(2)),
-        Expr::plus(Expr::Var('x'), Expr::Var('x')),
-    )
-    .eval(&None);
-    println!("{:?}", res);
-//    for _ in 0..100000000 {
-//        Expr::letexpr(
-//        Expr::Var('x'),
-//        Expr::plus(Expr::Value(1), Expr::Value(2)),
-//        Expr::plus(Expr::Var('x'), Expr::Var('x')),
-//    )
-//    .eval(&None);
-//        }
+    //    let res = Expr::plus(Expr::Value(2), Expr::Value(3)).eval(&None);
+    //    println!("{:?}", res);
 
-    // ASG 
-    
-    let a1 = Expr::plus(Expr::Value(1.0),Expr::Value(2.0));
-    let asg = Expr::plus(a1.clone(),a1).eval(&None);
-    println!("{:?}", asg);
-//    for _ in 0..100000000{
-//       Expr::plus(a1.clone(),a1.clone()).eval(&None);
-//    }
-  
-    
+    //let x = 1 + 2 in x + x
+    //    let res = Expr::letexpr(
+    //        Expr::Var('x'),
+    //        Expr::plus(Expr::Value(1), Expr::Value(2)),
+    //        Expr::plus(Expr::Var('x'), Expr::Var('x')),
+    //    )
+    //    .eval(&None);
+    //    println!("{:?}", res);
+    for _ in 0..100000000 {
+        Expr::letexpr(
+            Expr::Var('x'),
+            Expr::plus(Expr::Value(1), Expr::Value(2)),
+            Expr::plus(Expr::Var('x'), Expr::Var('x')),
+        )
+        .eval(&None);
+    }
+
+    // ASG
+
+    //    let a1 = Expr::plus(Expr::Value(1.0),Expr::Value(2.0));
+    //    let asg = Expr::plus(a1.clone(),a1).eval(&None);
+    //    println!("{:?}", asg);
+    //    for _ in 0..100000000{
+    //       Expr::plus(a1.clone(),a1.clone()).eval(&None);
+    //    }
+
     // mul test
 
-    let res = Expr::mul(Expr::Value(2),Expr::Value(3)).eval(&None);
-    println!("{:?}",res);
-
+    //   let res = Expr::mul(Expr::Value(2),Expr::Value(3)).eval(&None);
+    //  println!("{:?}",res);
 
     // panic test
-    let res = Expr::letexpr(
-        Expr::Value(0),
-        Expr::plus(Expr::Value(1), Expr::Value(2)),
-        Expr::plus(Expr::Var('x'), Expr::Var('x')),
-    )
-    .eval(&None);
-    println!("{:?}", res);
-
+    //  let res = Expr::letexpr(
+    //      Expr::Value(0),
+    //      Expr::plus(Expr::Value(1), Expr::Value(2)),
+    //      Expr::plus(Expr::Var('x'), Expr::Var('x')),
+    //  )
+    //  .eval(&None);
+    //  println!("{:?}", res);
 }
